@@ -1,10 +1,21 @@
 package com.cg.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Country")
 public class Country {
 
+	@Id
 	private String code;
+	@Column(name="name",length=20)
 	private String name;
+	@Column(name="continent",length=20)
 	private String continent;
+	@Column(name="capital",length=20)
 	private String capital;
 	public String getCode() {
 		return code;

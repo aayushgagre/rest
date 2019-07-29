@@ -2,11 +2,11 @@ package com.cg.daos;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.cg.entities.Country;
 
-public interface CountryDAO {
-	void save(Country country);
-    Country findByCode(String code);
-    List<Country> findByContinent(String continent);
-    void update(Country country);
+
+public interface CountryDAO extends JpaRepository<Country, String>{
+	
 }

@@ -3,6 +3,7 @@ package com.cg.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,21 +25,30 @@ public class CountryController {
     public Country findbycode(@PathVariable String code) {
         return service.byCode(code);
     }
+
     
-    @GetMapping(value="/continent-{continent}")
-    public List<Country> findbycontinent(@PathVariable String continent){
-        return service.byContinent(continent);
-    }
-    
-    @PostMapping(value="/new",consumes= {"application/xml"})
+    @PostMapping(value="/new",consumes= {"application/json"})
     public String save(@RequestBody Country country) {
         service.create(country);
         return "country added!";
     }
     
-    @PutMapping(value="/update",consumes= {"application/json"})
-    public String update(@RequestBody Country country) {
+    @PutMapping(value="/update/{code}",consumes= {"application/json"})
+    public String update(@PathVariable String code) {
+    	Country country=service.byCode(code);
         service.update(country);
         return "country updated";
-    }        
+    }  
+    
+    @DeleteMapping(value="/delete/{code}", consumes= {"application/json"})
+    public String delete(@PathVariable String code) {
+    	Country country=service.byCode(code);
+    	service.deleteByCode(country);
+    	
+    	return "country deleted";
+    	
+    }
+    
+    
+    
 }
